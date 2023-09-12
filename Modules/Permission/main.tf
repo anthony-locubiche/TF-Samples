@@ -1,6 +1,3 @@
-
-
-
 resource "azurerm_role_assignment" "set_group_azure_role" {
   for_each = try(toset(var.group_list))
 

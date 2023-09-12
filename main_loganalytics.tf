@@ -5,7 +5,7 @@ module "loganalytics" {
   resource_group_name = azurerm_resource_group.rg["platform"].name
   sku                 = var.log_analytics_config.sku
   retention_in_days   = var.log_analytics_config.retention_in_days
-  tags                = merge({ "ST-App-Name" = format("%s", upper("COMMON")) }, var.tags.common)
+  tags                = merge({ "App-Name" = format("%s", upper("COMMON")) }, var.tags.common)
 }
 
 #MONITOR LOG ANALYTICS

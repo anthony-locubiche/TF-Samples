@@ -21,7 +21,7 @@ resource "azurerm_storage_account_network_rules" "datalake_storage_network_rules
   #storage_account_name = azurerm_storage_account.datalake_storage.name
   #resource_group_name = azurerm_storage_account.datalake_storage.resource_group_name
   default_action             = "Deny"
-  bypass                     = ["None"]
+  bypass                     = ["AzureServices"] #If None then Containers can't be created from terraform
   ip_rules                   = var.ip_rules
   virtual_network_subnet_ids = var.virtual_network_subnet_ids
   depends_on = [
@@ -37,4 +37,5 @@ module "storage_monitor" {
   target_resource_id           = azurerm_storage_account.datalake_storage.id
   log_analytics_workspace_name = var.log_analytics_workspace_name
   log_analytics_workspace_id   = var.log_analytics_workspace_id
+  log_categories               = [] #No Category for Storage Account diag settings
 }

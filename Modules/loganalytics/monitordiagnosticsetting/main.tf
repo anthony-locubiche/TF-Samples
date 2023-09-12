@@ -10,11 +10,7 @@ resource "azurerm_monitor_diagnostic_setting" "monitordiagnosticsetting" {
   dynamic "enabled_log" {
     for_each = var.log_categories
     content {
-      category = enabled_log.key
-      retention_policy {
-        days    = 30
-        enabled = true
-      }
+      category = enabled_log.value
     }
   }
 
@@ -23,10 +19,6 @@ resource "azurerm_monitor_diagnostic_setting" "monitordiagnosticsetting" {
     content {   
       category = metric.key
       enabled  = true
-      retention_policy {
-        days    = 30
-        enabled = true
-      }
     }
   }
 }

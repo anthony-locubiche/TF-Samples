@@ -14,7 +14,7 @@ module "loganalytics_monitor" {
 
   target_resource_name = module.loganalytics.name
   target_resource_id   = module.loganalytics.id
-  log_categories = ["AuditEvent"]
+  log_categories = ["Audit"]
 
   log_analytics_workspace_name = module.loganalytics.name
   log_analytics_workspace_id   = module.loganalytics.id

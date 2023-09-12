@@ -288,7 +288,7 @@ resource "databricks_user" "databricks_project_users" {
   display_name               = replace(replace(split("@", each.key)[0], "-ext", ""), "."," ")
   allow_cluster_create       = var.allow_cluster_create
   allow_instance_pool_create = var.allow_instance_pool_create
-  #TODO: Access to SQL Analytics must be done with databricks_sql_access property
+  #Access to SQL Analytics must be done with databricks_sql_access property
   #allow_sql_analytics_access = var.allow_sql_analytics_access
 #  lifecycle {
 #    ignore_changes = [

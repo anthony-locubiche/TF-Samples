@@ -54,10 +54,10 @@ variable "ip_rules" {
   default = []
 }
 
-variable "log_analytics_workspace_name" {
-  type    = string
-}
-
-variable "log_analytics_workspace_id" {
-  type    = string
-}
+#variable "log_analytics_workspace_name" {
+#  type    = string
+#}
+#
+#variable "log_analytics_workspace_id" {
+#  type    = string
+#}

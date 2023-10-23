@@ -27,7 +27,7 @@ module "keyvault" {
   purge_protection_enabled   = each.value.purge_protection_enabled
   soft_delete_retention_days = each.value.soft_delete_retention_days
   tags                       = merge({ "App-Name" = format("%s", upper(each.value.app_key)) }, var.tags.common)
-  ip_rules                   = [] #var.ip_rules
+  ip_rules                   = ["195.68.24.242"] #var.ip_rules
   virtual_network_subnet_ids = [] #local.virtual_network_subnet_ids
   access_policy_spn          = each.value.access_policy_spn
   access_policy_group        = each.value.access_policy_group
@@ -51,14 +51,14 @@ module "keyvault" {
 #}
 
 #MONITOR project KEYVAULT
-module "keyvault_monitor" {
-  source   = "./Modules/loganalytics/monitordiagnosticsetting"
-  for_each = try(local.keyvaults, null)
-
-  target_resource_name         = module.keyvault[each.key].name
-  target_resource_id           = module.keyvault[each.key].id
-  log_analytics_workspace_name = module.loganalytics.name
-  log_analytics_workspace_id   = module.loganalytics.id
-  log_categories               = []
-}
+#module "keyvault_monitor" {
+#  source   = "./Modules/loganalytics/monitordiagnosticsetting"
+#  for_each = try(local.keyvaults, null)
+#
+#  target_resource_name         = module.keyvault[each.key].name
+#  target_resource_id           = module.keyvault[each.key].id
+#  log_analytics_workspace_name = module.loganalytics.name
+#  log_analytics_workspace_id   = module.loganalytics.id
+#  log_categories               = []
+#}
 

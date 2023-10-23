@@ -29,7 +29,7 @@ resource "azurerm_key_vault" "keyvault" {
 
   network_acls {
     default_action             = "Deny"
-    bypass                     = "None"
+    bypass                     = "AzureServices"
     ip_rules                   = var.ip_rules
     virtual_network_subnet_ids = var.virtual_network_subnet_ids
   }

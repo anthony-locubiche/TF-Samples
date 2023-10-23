@@ -95,12 +95,12 @@ module "datalake_storage" {
   min_tls_version              = each.value.min_tls_version
   enable_https_traffic_only    = each.value.enable_https_traffic_only
   tags                         = merge({ "App-Name" = format("%s", upper(each.value.app_key)) }, var.tags.common)
-  log_analytics_workspace_id   = module.loganalytics.id
-  log_analytics_workspace_name = module.loganalytics.name
-  ip_rules = []
-  depends_on = [
-    module.loganalytics
-  ]
+#  log_analytics_workspace_id   = module.loganalytics.id
+#  log_analytics_workspace_name = module.loganalytics.name
+  ip_rules                     = ["195.68.24.242"]
+#  depends_on = [
+#    module.loganalytics
+#  ]
 }
 
 #DATALAKE ENDPOINT

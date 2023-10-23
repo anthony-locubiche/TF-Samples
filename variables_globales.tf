@@ -237,7 +237,6 @@ variable "infra_dns" {
     Azure_Event_Grid               = string
     Azure_Web_Apps                 = string
     Azure_Machine_Learning_2       = string
-    Azure_Machine_Learning_2       = string
     SignalR                        = string
     Azure_Monitor_1                = string
     Azure_Monitor_2                = string

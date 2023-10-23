@@ -1,5 +1,4 @@
 terraform {
-  experiments = [module_variable_optional_attrs]
 }
 
 
@@ -30,7 +29,7 @@ resource "azurerm_key_vault" "keyvault" {
 
   network_acls {
     default_action             = "Deny"
-    bypass                     = "None"
+    bypass                     = "AzureServices"
     ip_rules                   = var.ip_rules
     virtual_network_subnet_ids = var.virtual_network_subnet_ids
   }
@@ -40,8 +39,8 @@ resource "azurerm_key_vault_access_policy" "terraform_account" {
   key_vault_id            = azurerm_key_vault.keyvault.id
   tenant_id               = data.azurerm_client_config.current.tenant_id
   object_id               = data.azurerm_client_config.current.object_id
-  key_permissions         = ["get", "create", "delete", "list", "restore", "recover", "unwrapkey", "wrapkey", "purge", "encrypt", "decrypt", "sign", "verify"]
-  secret_permissions      = ["get", "set", "list", "delete", "purge", "recover"]
+  key_permissions         = ["Get", "Create", "Delete", "List", "Restore", "Recover", "Purge", "Encrypt", "Decrypt", "Sign", "Verify"]
+  secret_permissions      = ["Get", "Set", "List", "Delete"]
   certificate_permissions = ["Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers", "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"]
 
   depends_on = [
@@ -49,35 +48,35 @@ resource "azurerm_key_vault_access_policy" "terraform_account" {
   ]
 }
 
-resource "azurerm_key_vault_access_policy" "SPN" {
-  for_each = var.access_policy_spn
+#resource "azurerm_key_vault_access_policy" "SPN" {
+#  for_each = var.access_policy_spn
+#
+#  key_vault_id            = azurerm_key_vault.keyvault.id
+#  tenant_id               = data.azurerm_client_config.current.tenant_id
+#  object_id               = data.azuread_service_principal.access_policy_spn[each.key].object_id
+#  key_permissions         = each.value.key_permissions
+#  secret_permissions      = each.value.secret_permissions
+#  certificate_permissions = each.value.certificate_permissions
+#
+#  depends_on = [
+#    azurerm_key_vault.keyvault
+#  ]
+#}
 
-  key_vault_id            = azurerm_key_vault.keyvault.id
-  tenant_id               = data.azurerm_client_config.current.tenant_id
-  object_id               = data.azuread_service_principal.access_policy_spn[each.key].object_id
-  key_permissions         = each.value.key_permissions
-  secret_permissions      = each.value.secret_permissions
-  certificate_permissions = each.value.certificate_permissions
-
-  depends_on = [
-    azurerm_key_vault.keyvault
-  ]
-}
-
-resource "azurerm_key_vault_access_policy" "group" {
-  for_each = try(local.users, null)
-
-  key_vault_id            = azurerm_key_vault.keyvault.id
-  tenant_id               = data.azurerm_client_config.current.tenant_id
-  object_id               = each.value.user_object_id
-  key_permissions         = var.access_policy_group[each.value.group_key].key_permissions
-  secret_permissions      = var.access_policy_group[each.value.group_key].secret_permissions
-  certificate_permissions = var.access_policy_group[each.value.group_key].certificate_permissions
-
-  depends_on = [
-    azurerm_key_vault.keyvault
-  ]
-}
+#resource "azurerm_key_vault_access_policy" "group" {
+#  for_each = try(local.users, null)
+#
+#  key_vault_id            = azurerm_key_vault.keyvault.id
+#  tenant_id               = data.azurerm_client_config.current.tenant_id
+#  object_id               = each.value.user_object_id
+#  key_permissions         = var.access_policy_group[each.value.group_key].key_permissions
+#  secret_permissions      = var.access_policy_group[each.value.group_key].secret_permissions
+#  certificate_permissions = var.access_policy_group[each.value.group_key].certificate_permissions
+#
+#  depends_on = [
+#    azurerm_key_vault.keyvault
+#  ]
+#}
 
 # resource "random_password" "password_sql_server" {
 #   length           = 24

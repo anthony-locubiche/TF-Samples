@@ -343,6 +343,23 @@ variable "platform" {
         certificate_permissions = list(any)
       }))
     })
+    sql_server = object({
+      server_version      = string
+      administrator_login = string
+      azuread_admin_group = string
+      authorized_networks = list(string)
+      sql_db = map(object({
+        collation                   = string
+        sku_name                    = string
+        max_size_gb                 = number
+        read_scale                  = optional(string)
+        min_capacity                = optional(string)
+        auto_pause_delay_in_minutes = number
+        zone_redundant              = optional(string)
+        read_replica_count          = optional(string)
+        create_mode                 = optional(string)
+      }))
+    })
   })
 }
 
@@ -401,17 +418,41 @@ variable "tenant_id" {
 }
 
 variable "azure_admin_groups" {
-  type        = list
+  type        = list(any)
   description = "Admin group that add specific permission"
 }
 
 variable "log_analytics_config" {
   type = object({
-      sku = string
-      retention_in_days = number
+    sku               = string
+    retention_in_days = number
   })
   default = {
-    sku = "PerGB2018"
+    sku               = "PerGB2018"
     retention_in_days = 30
+  }
+}
+variable "networks" {
+  type = map(any)
+  default = {
+    "vnet-storage" = {
+      networkRange = ["10.0.0.0/24"]
+      subnets = {
+        default = {
+          range = "10.0.0.0/26"
+        }
+        platform = {
+          range = "10.0.0.64/26"
+        }
+      }
+    },
+    "vnet-access" = {
+      networkRange = ["10.5.0.0/24"]
+      subnets = {
+        default = {
+          range = "10.5.0.0/26"
+        }
+      }
+    }
   }
 }

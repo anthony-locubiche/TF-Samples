@@ -46,7 +46,7 @@ description = "A map of the tags to use on the resources that are deployed with 
 }
 
 variable "virtual_network_subnet_ids" {
-    type    = map
+    type    = list(string)
 }
 
 # variable "subnets" {

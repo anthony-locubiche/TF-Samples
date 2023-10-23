@@ -1,5 +1,5 @@
-location    = "westeurope"
-environment = "tfsandbox"
+location           = "westeurope"
+environment        = "tfsandbox"
 azure_admin_groups = []
 platform = {
   storage_account = {
@@ -20,8 +20,8 @@ platform = {
           access_type = "private"
           permission_spn = {
             #spn1 = {
-              #role = "Storage Blob Data Contributor"
-              #SPN  = ["mfgpilot04-mda-stsl-adls"]
+            #role = "Storage Blob Data Contributor"
+            #SPN  = ["mfgpilot04-mda-stsl-adls"]
             #}
           }
         },
@@ -30,12 +30,12 @@ platform = {
           access_type = "private"
           permission_group = {
             #group1 = {
-              #role  = "Storage Blob Data Contributor"
-              #GROUP = ["DIT_MDA_FinOps"]
+            #role  = "Storage Blob Data Contributor"
+            #GROUP = ["DIT_MDA_FinOps"]
             #},
             #group2 = {
-              #role  = "Owner"
-              #GROUP = ["DIT_MDA_Architects"]
+            #role  = "Owner"
+            #GROUP = ["DIT_MDA_Architects"]
             #}
           }
         }
@@ -43,8 +43,8 @@ platform = {
     }
   }
   keyvault = {
-    sku                        = "standard"
-    purge_protection_enabled   = "false"
+    sku                      = "standard"
+    purge_protection_enabled = "false"
     #soft_delete_retention_days = "7"
     access_policy_spn = {
       #mfgpilot04-mda-stsl-adls = {
@@ -63,7 +63,24 @@ platform = {
       #}
     }
   }
+  sql_server = {
+    server_version      = "12.0"
+    administrator_login = "sqladmin_platform"
+    azuread_admin_group = ""
+    authorized_networks = ["vnet-storage_default"]
+    sql_db = {
+      sharedDB = {
+        collation   = "SQL_LATIN1_GENERAL_CP1_CI_AS"
+        max_size_gb = 10
+        sku_name = "GP_Gen5_2"
+        min_capacity                = "0.5"
+        auto_pause_delay_in_minutes = 60
+        create_mode = "Default"
+      }
+    }
+  }
 }
+
 applications = {
   app1 = {
     storage_account = {
@@ -94,8 +111,8 @@ applications = {
             access_type = "private"
             permission_spn = {
               #spn1 = {
-                #role = "Storage Blob Data Contributor"
-                #SPN  = ["mfgpilot04-mda-stsl-adls"]
+              #role = "Storage Blob Data Contributor"
+              #SPN  = ["mfgpilot04-mda-stsl-adls"]
               #}
             }
           }
@@ -127,31 +144,32 @@ applications = {
       }
     }
     keyvault = {
-      sku                        = "standard"
-      purge_protection_enabled   = "false"
+      sku                      = "standard"
+      purge_protection_enabled = "false"
       #soft_delete_retention_days = "7"
       access_policy_spn = {
         #mfgpilot04-mda-stsl-adls = {
-          #SPN                     = "mfgpilot04-mda-stsl-adls"
-          #key_permissions         = ["get", "create", "delete", "list", "restore", "recover", "unwrapkey", "wrapkey", "purge", "encrypt", "decrypt", "sign", "verify"]
-          #secret_permissions      = ["get", "set", "list", "delete", "purge", "recover"]
-          #certificate_permissions = []
+        #SPN                     = "mfgpilot04-mda-stsl-adls"
+        #key_permissions         = ["get", "create", "delete", "list", "restore", "recover", "unwrapkey", "wrapkey", "purge", "encrypt", "decrypt", "sign", "verify"]
+        #secret_permissions      = ["get", "set", "list", "delete", "purge", "recover"]
+        #certificate_permissions = []
         #}
         #databricks = {
-          #SPN                     = "AzureDatabricks"
-          #key_permissions         = ["get", "create", "delete", "list", "restore", "recover", "unwrapkey", "wrapkey", "purge", "encrypt", "decrypt", "sign", "verify"]
-          #secret_permissions      = ["get", "set", "list", "delete", "purge", "recover"]
-          #certificate_permissions = []
+        #SPN                     = "AzureDatabricks"
+        #key_permissions         = ["get", "create", "delete", "list", "restore", "recover", "unwrapkey", "wrapkey", "purge", "encrypt", "decrypt", "sign", "verify"]
+        #secret_permissions      = ["get", "set", "list", "delete", "purge", "recover"]
+        #certificate_permissions = []
         #}
       }
       access_policy_group = {
         #DIT_MDA_Subco_DevOps_Admin_NonProd = {
-          #group                   = "DIT_MDA_Subco_DevOps_Admin_NonProd"
-          #key_permissions         = ["get", "create", "delete", "list", "restore", "recover", "unwrapkey", "wrapkey", "purge", "encrypt", "decrypt", "sign", "verify"]
-          #secret_permissions      = ["get", "set", "list", "delete", "purge", "recover"]
-          #certificate_permissions = []
+        #group                   = "DIT_MDA_Subco_DevOps_Admin_NonProd"
+        #key_permissions         = ["get", "create", "delete", "list", "restore", "recover", "unwrapkey", "wrapkey", "purge", "encrypt", "decrypt", "sign", "verify"]
+        #secret_permissions      = ["get", "set", "list", "delete", "purge", "recover"]
+        #certificate_permissions = []
         #}
       }
+
     }
   }
 }

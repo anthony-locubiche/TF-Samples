@@ -1,0 +1,8 @@
+sandbox.tfplan
+.terraform/terraform.tfstate
+.terraform/providers/registry.terraform.io/hashicorp/azuread/2.40.0/linux_amd64/terraform-provider-azuread_v2.40.0_x5
+.terraform/providers/registry.terraform.io/hashicorp/time/0.7.2/linux_amd64/terraform-provider-time_v0.7.2_x5
+.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.69.0/linux_amd64/terraform-provider-azurerm_v3.69.0_x5
+.terraform/providers/registry.terraform.io/hashicorp/random/3.1.0/linux_amd64/terraform-provider-random_v3.1.0_x5
+.terraform/modules/modules.json
+.terraform.lock.hcl

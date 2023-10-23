@@ -15,9 +15,9 @@ resource "azurerm_mssql_server" "sql_server" {
 
 resource "azurerm_mssql_virtual_network_rule" "network_rules" {
   for_each  = var.virtual_network_subnet_ids
-  name      = each.value.name
+  name      = "Rule for ${each.value} subnet"
   server_id = azurerm_mssql_server.sql_server.id
-  subnet_id = each.value.id
+  subnet_id = each.value
 }
 
 # resource "azurerm_sql_virtual_network_rule" "sqlvnetrule" {

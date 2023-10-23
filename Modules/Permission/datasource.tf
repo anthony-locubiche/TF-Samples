@@ -11,4 +11,3 @@ data "azuread_group" "permission_group" {
 
   display_name = each.key
 }
-

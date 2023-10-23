@@ -45,17 +45,19 @@ description = "A map of the tags to use on the resources that are deployed with 
 }
 
 variable "virtual_network_subnet_ids" {
-  type = list
+  type = list(string)
+  default = []
 }
 
 variable "ip_rules" {
-  type = list
+  type = list(string)
+  default = []
 }
 
-variable "log_analytics_workspace_name" {
-  type    = string
-}
-
-variable "log_analytics_workspace_id" {
-  type    = string
-}
+#variable "log_analytics_workspace_name" {
+#  type    = string
+#}
+#
+#variable "log_analytics_workspace_id" {
+#  type    = string
+#}
